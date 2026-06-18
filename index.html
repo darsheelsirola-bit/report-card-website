@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grade Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px;
+            width: 200px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Grade Calculator</h1>
+
+    <input type="text" id="name" placeholder="Enter your name"><br>
+
+    <input type="number" id="eng" placeholder="English Marks"><br>
+
+    <input type="number" id="math" placeholder="Math Marks"><br>
+
+    <input type="number" id="science" placeholder="Science Marks"><br>
+
+    <button onclick="calculateGrade()">Calculate Grade</button>
+
+    <div id="result"></div>
+
+    <script>
+        function calculateGrade() {
+            let name = document.getElementById("name").value;
+            let eng = Number(document.getElementById("eng").value);
+            let math = Number(document.getElementById("math").value);
+            let science = Number(document.getElementById("science").value);
+
+            if (eng < 0 || eng > 100 ||
+                math < 0 || math > 100 ||
+                science < 0 || science > 100) {
+
+                document.getElementById("result").innerHTML =
+                    "Invalid marks entered. Please enter marks between 0 and 100.";
+                return;
+            }
+
+            let total = eng + math + science;
+            let percentage = (total / 300) * 100;
+
+            let grade, comment;
+
+            if (eng < 50 || math < 50 || science < 50) {
+                grade = "F";
+                comment = "You have failed in one or more subjects.";
+            } else if (percentage >= 90) {
+                grade = "A";
+                comment = "Excellent work! Keep it up!";
+            } else if (percentage >= 80) {
+                grade = "B";
+                comment = "Good job! You're doing well!";
+            } else if (percentage >= 70) {
+                grade = "C";
+                comment = "Not bad! You can do better!";
+            } else if (percentage >= 50) {
+                grade = "D";
+                comment = "You passed! Keep working hard!";
+            } else {
+                grade = "F";
+                comment = "Better luck next time!";
+            }
+
+            document.getElementById("result").innerHTML = `
+                <h3>Report Card</h3>
+                <p>Hello, ${name}!</p>
+                <p>Total Marks: ${total}</p>
+                <p>Percentage: ${percentage.toFixed(2)}%</p>
+                <p><strong>Grade: ${grade}</strong></p>
+                <p>${comment}</p>
+            `;
+        }
+    </script>
+
+</body>
+</html>
